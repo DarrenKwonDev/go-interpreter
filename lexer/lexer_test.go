@@ -110,7 +110,7 @@ func TestNextToken(t *testing.T) {
 	}
 
 	l := New(input)
-	
+
 	for i, tt := range tests {
 		tok := l.NextToken()
 

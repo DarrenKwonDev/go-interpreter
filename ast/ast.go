@@ -32,10 +32,11 @@ func (p *Program) TokenLiteral() string {
 // Statement Node 중 LET
 type LetStatement struct {
 	Token token.Token // token.LET
-	Name *Identifier
+	Name  *Identifier
 	Value Expression
 }
-func (ls *LetStatement) statementNode() {}
+
+func (ls *LetStatement) statementNode()       {}
 func (ls *LetStatement) TokenLiteral() string { return ls.Token.Literal }
 
 // Expression Node 중 IDENT. (expression이지만 값을 만들지 않음. 노드 타입 수를 줄여 단순화를 위한 trade-off)
@@ -43,6 +44,6 @@ type Identifier struct {
 	Token token.Token // token.IDENT
 	Value string
 }
-func (i *Identifier) expressionNode() {}
-func (i *Identifier) TokenLiteral() string { return i.Token.Literal }
 
+func (i *Identifier) expressionNode()      {}
+func (i *Identifier) TokenLiteral() string { return i.Token.Literal }

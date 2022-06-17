@@ -6,9 +6,9 @@ import (
 
 type Lexer struct {
 	input        string // 우리가 어휘 분석할 문자열
-	position     int  // 마지막으로 읽은 포지션
-	readPosition int // 다음 포지션
-	ch           byte // 현재 문자
+	position     int    // 마지막으로 읽은 포지션
+	readPosition int    // 다음 포지션
+	ch           byte   // 현재 문자
 }
 
 func New(input string) *Lexer {
@@ -27,7 +27,7 @@ func (l *Lexer) NextToken() token.Token {
 		if l.peekChar() == '=' { // 다음 문자가 =라서 결론적으로 ==가 나온다면.
 			ch := l.ch
 			l.readChar()
-			literal := string(ch) + string(l.ch) 
+			literal := string(ch) + string(l.ch)
 			tok = token.Token{Type: token.EQ, Literal: literal}
 		} else {
 			tok = newToken(token.ASSIGN, l.ch)
@@ -70,7 +70,7 @@ func (l *Lexer) NextToken() token.Token {
 		tok.Type = token.EOF
 	default:
 		if isLetter(l.ch) {
-			tok.Literal = l.readIdentifier() // 식별자 인식을 위해 letter가 끝날 때까지 읽고
+			tok.Literal = l.readIdentifier()          // 식별자 인식을 위해 letter가 끝날 때까지 읽고
 			tok.Type = token.LookupIdent(tok.Literal) // keyword map에서 찾아야 함.
 			return tok
 		} else if isDigit(l.ch) {
