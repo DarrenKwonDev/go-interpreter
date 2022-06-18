@@ -42,6 +42,17 @@ type LetStatement struct {
 func (ls *LetStatement) statementNode()       {}
 func (ls *LetStatement) TokenLiteral() string { return ls.Token.Literal }
 
+// StatementNode 중 하나인 ReturnStatementNode
+type ReturnStatement struct {
+	Token token.Token // token.RETURN
+	ReturnValue Expression
+}
+
+func (rs *ReturnStatement) statementNode() {}
+func (rs *ReturnStatement) TokenLiteral() string { 
+	return rs.Token.Literal
+}
+
 // ExpressionNode중 하나인 IdentifierNode
 type Identifier struct {
 	Token token.Token // token.IDENT

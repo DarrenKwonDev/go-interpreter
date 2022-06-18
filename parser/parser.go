@@ -48,6 +48,8 @@ func (p *Parser) parseStatement() ast.Statement {
 	switch p.curToken.Type {
 		case token.LET: // LET 토큰을 만나면 LetStatement를 파싱합니다.
 			return p.parseLetStatement()
+		case token.RETURN: // RETURN 토큰을 만나면 ReturnStatement를 파싱합니다.
+			return p.parseReturnStatement()
 		default:
 			return nil
 	}
@@ -72,6 +74,21 @@ func (p *Parser) parseLetStatement() *ast.LetStatement {
 	}
 
 	// 세미콜론이 돌 때까지 일단은 건너 뛰자.
+	for !p.curTokenIs(token.SEMICOLON) {
+		p.nextToken()
+	}
+
+	return stmt
+}
+
+// RETURN 토큰을 만나면 *ast.ReturnStatement 노드를 만듭니다.
+// return [EXPRESSION]; 형태로 작성될 것을 기대하고 있습니다.
+func (p *Parser) parseReturnStatement() *ast.ReturnStatement {
+	stmt := &ast.ReturnStatement{Token: p.curToken}
+
+	p.nextToken()
+
+	// 세미콜론이 돌 때까지 표현식은 일단은 건너 뛰자.
 	for !p.curTokenIs(token.SEMICOLON) {
 		p.nextToken()
 	}
