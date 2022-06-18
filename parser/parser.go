@@ -12,10 +12,11 @@ type Parser struct {
 	peekToken token.Token // 다음 토큰
 }
 
+// 파서를 생성합니다.
 func New(l *lexer.Lexer) *Parser {
 	p := &Parser{l: l}
-	p.nextToken()
-	p.nextToken()
+	p.nextToken() 
+	p.nextToken() // 현재, 다음 토큰을 얻기 위해서 nextToken 메서드 2회 실행
 	return p
 }
 
