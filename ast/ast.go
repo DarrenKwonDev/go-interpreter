@@ -2,15 +2,18 @@ package ast
 
 import "github.com/go-interpreter/token"
 
+// ast node의 기본형
 type Node interface {
 	TokenLiteral() string
 }
 
+// StatementNode
 type Statement interface { // 선언문
 	Node
 	statementNode()
 }
 
+// ExpressionNode
 type Expression interface { // 표현식
 	Node
 	expressionNode()
@@ -29,6 +32,7 @@ func (p *Program) TokenLiteral() string {
 	}
 }
 
+// StatementNode 중 하나인 LetStatementNode
 type LetStatement struct {
 	Token token.Token // token.LET
 	Name  *Identifier
@@ -38,6 +42,7 @@ type LetStatement struct {
 func (ls *LetStatement) statementNode()       {}
 func (ls *LetStatement) TokenLiteral() string { return ls.Token.Literal }
 
+// ExpressionNode중 하나인 IdentifierNode
 type Identifier struct {
 	Token token.Token // token.IDENT
 	Value string

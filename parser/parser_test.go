@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"log"
 	"testing"
 
 	"github.com/go-interpreter/ast"
@@ -18,6 +19,7 @@ func TestLetStatements(t *testing.T) {
 	p := New(l) // parser
 
 	program := p.ParseProgram()
+	
 	if program == nil {
 		t.Fatalf("ParseProgram() is nil")
 	}
@@ -42,11 +44,15 @@ func TestLetStatements(t *testing.T) {
 }
 
 func testLetStatement(t *testing.T, s ast.Statement, name string) bool {
+	log.Printf("testLetStatement: %#v", s)
+
 	if s.TokenLiteral() != "let" {
 		t.Errorf("s.TokenLiteral not 'let'. got=%q", s.TokenLiteral())
 		return false
 	}
+
 	letStmt, ok := s.(*ast.LetStatement)
+	
 	if !ok {
 		t.Errorf("s not *ast.LetStatement. got=%T", s)
 		return false
@@ -59,5 +65,6 @@ func testLetStatement(t *testing.T, s ast.Statement, name string) bool {
 		t.Errorf("letStmt.Name.TokenLiteral() not '%s'. got=%s", name, letStmt.Name.TokenLiteral())
 		return false
 	}
+
 	return true
 }
